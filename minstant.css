@@ -82,3 +82,8 @@
 .dropdown-menu li:hover a {
   color: inherit;
 }
+
+.chat-message {
+	border-radius: 5px;
+	padding: 5px;
+}

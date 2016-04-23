@@ -90,9 +90,23 @@
 
 <!-- simple template that displays a message -->
 <template name="chat_message">
+	{{#if other_user sentBy}}
+	<div class="container-fluid bg-success chat-message">
 	<img src="/{{avatar}}" class="avatar_sm">
 	{{#emojione}}
-		{{sentBy}} said: {{text}}
+		You said: {{text}}
 	{{/emojione}}
 	<br>
+	</div>
+	{{else}}
+	<div class="container-fluid chat-message">
+	<div class="pull-right">
+		{{#emojione}}
+			{{sentBy}} said: {{text}}
+		{{/emojione}}
+		<img src="/{{avatar}}" class="avatar_sm">
+		<br>
+	</div>
+	</div>
+	{{/if}}
 </template>

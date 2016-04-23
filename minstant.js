@@ -65,6 +65,7 @@ if (Meteor.isClient) {
       user = Meteor.users.findOne({_id:userId});
       return user.profile.username;
     }, 
+    
     isMyUser:function(userId){
       if (userId == Meteor.userId()){
         return true;
@@ -72,25 +73,33 @@ if (Meteor.isClient) {
       else {
         return false;
       }
-    }
-  })
+    },
+
+  }) //end of available user helpers
 
 
   Template.chat_page.helpers({
     messages:function(){
       var chat = Chats.findOne({_id:Session.get("chatId")});
       return chat.messages;
-    }, 
-    other_user:function(){
-      return ""
-    }, 
+    } 
 
   })
 
   Template.chat_message.helpers({
     getUsername: function(){
 
-    }
+    },
+
+    other_user:function(sentBy){
+      var currentUser = Meteor.users.findOne({_id: Meteor.userId()});
+      var currentUsername = currentUser.profile.username;
+      if (currentUsername == sentBy) {
+        return true;
+      } else {
+        return false;
+      }
+    }, 
   })
 
  Template.chat_page.events({
