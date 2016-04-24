@@ -19,7 +19,7 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">
+      <a class="navbar-brand" href="/lobby">
         Minstant!
       </a>
     </div>
@@ -52,7 +52,7 @@
 			{{#if isMyUser _id}} 
 			<div class="bg-success">{{getUsername _id}} (YOU)
 				<br/>
-				<img src="/{{profile.avatar}}" class="avatar_img">			
+				<img src="{{profile.avatar}}" class="avatar_img">			
 			</div>
 			{{else}}
 			{{> easy_presence}}
@@ -70,6 +70,7 @@
 <!-- Top level template for the chat page -->
 <template name="chat_page">
 	<h2>Type in the box below to send a message!</h2>
+	<p>Use emoticons with ":"</p>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="well well-lg">
@@ -110,4 +111,37 @@
 	</div>
 	</div>
 	{{/if}}
+</template>
+
+<!-- home screen -->
+<template name="entry">
+	<div class="jumbotron">
+		<h1>Please, keep talking.</h1>
+		<p>Create a Minstant! account or sign in above. Your friends are waiting.</p>
+		{{#if currentUser}}
+		<a class="btn btn-lg btn-success" href="/lobby">Welcome!</a>
+		{{/if}}
+	</div>
+
+	<div class="welcome container">
+	<div class="row">
+		<div class="col-md-4">
+		<h2>Full emoji support.</h2>
+		<img class="welcome_icon" src="http://614now.com/wp-content/uploads/2016/02/facebook-reaction-emoji-grid-400x400.jpg" alt="emoji grid"/>
+		{{#emojione}}<h3>For when your :boy: thinks his :cd: is :fire: but you :new_moon_with_face:</h3>{{/emojione}}
+		</div>
+
+		<div class="col-md-4">
+		<h2>Instant user status.</h2>
+		<img class="welcome_icon" src="http://www.evolytics.com/wp-content/uploads/2016/02/How-to-Make-a-Tableau-Stoplight-100-Index-Feature.png" alt="stoplight"/>
+		<h3>For when you waiting hours for bae to log on.</h3>
+		</div>
+
+		<div class="col-md-4">
+		<h2>Secure chatting platform.</h2>
+		<img class="welcome_icon" src="http://www.ufunk.net/wp-content/uploads/2014/11/museum-of-selfie-3.jpg" alt="selfie"/>
+		<h3>For when your selfies too nasty to be leaking.</h3>
+		</div>
+	</div>
+	</div>
 </template>

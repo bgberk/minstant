@@ -1,5 +1,21 @@
 /* CSS declarations go here */
 
+.jumbotron{
+	background: url('http://www.stjohncharlescity.org/eskinny/media_lit.JPG') no-repeat center center;
+	background-size: cover;
+	color: white;
+	text-shadow: black 2px 2px 8px;
+}
+
+.welcome{
+	text-align: center;
+}
+
+.welcome_icon{
+	height: 150px;
+	border-radius: 5px;
+}
+
 .user_avatar{
 	min-height:100px;
 	text-align: center;

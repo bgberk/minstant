@@ -7,6 +7,17 @@ Meteor.methods({
 
   'updateChat': function(chatId, chat){
     Chats.update(chatId, chat);
+  },
+
+  'addUser': function(email, username, password, avatar){
+    Meteor.users.insert({profile:{username:username, avatar:avatar}, emails:[{address:email}],services:{ password:{"bcrypt" : "$2a$10$I3erQ084OiyILTv8ybtQ4ON6wusgPbMZ6.P33zzSDei.BbDL.Q4EO"}}});
+    Meteor.loginWithPassword(username, password, function(err, res){
+      if (err){
+        console.log(err)
+      } else {
+        Router.go('/lobby');
+      }
+    });
   }
 })
 
@@ -19,10 +30,30 @@ if (Meteor.isClient) {
     layoutTemplate: 'ApplicationLayout'
   });
   // specify the top level route, the page users see when they arrive at the site
-  Router.route('/', function () {
+  Router.route('/lobby', function () {
     console.log("rendering root /");
     this.render("navbar", {to:"header"});
     this.render("lobby_page", {to:"main"});  
+  });
+
+  Router.route('/', function () {
+    this.render("navbar", {to:"header"});
+    this.render("entry", {to: "main"});
+  });
+
+  Router.onBeforeAction(function () {
+  // all properties available in the route function
+  // are also available here such as this.params
+
+  if (!Meteor.userId()) {
+    // if the user is not logged in, render the Login template
+    this.render("navbar", {to:"header"});
+    this.render("entry", {to: "main"});
+  } else {
+    // otherwise don't hold up the rest of hooks or our route/action function
+    // from running
+    this.next();
+  }
   });
 
   // specify a route that allows the current user to chat to another users
@@ -137,8 +168,9 @@ if (Meteor.isClient) {
       //Chats.update(chat._id, chat);
     }
   }
- })
-}
+ });
+
+} //end of client test
 
 
 // start up script that creates some users for testing
@@ -163,7 +195,7 @@ if (Meteor.isServer) {
       for (var i=1;i<9;i++){
         var email = "user"+i+"@test.com";
         var username = "user"+i;
-        var avatar = "ava"+i+".png"
+        var avatar = "/ava"+i+".png"
         console.log("creating a user with password 'test123' and username/ email: "+email);
         Meteor.users.insert({profile:{username:username, avatar:avatar}, emails:[{address:email}],services:{ password:{"bcrypt" : "$2a$10$I3erQ084OiyILTv8ybtQ4ON6wusgPbMZ6.P33zzSDei.BbDL.Q4EO"}}});
       }
