@@ -42,7 +42,7 @@
 	{{#each users}}
 	{{> available_user}}
 	{{/each}}
-</div>
+	</div>
 </template>
 
 <!-- display an individual user -->
@@ -55,6 +55,7 @@
 				<img src="/{{profile.avatar}}" class="avatar_img">			
 			</div>
 			{{else}}
+			{{> easy_presence}}
 			<a href="/chat/{{_id}}">
 				{{getUsername _id}}
 				<br/>

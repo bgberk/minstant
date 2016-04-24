@@ -57,6 +57,10 @@ if (Meteor.isClient) {
   Template.available_user_list.helpers({
     users:function(){
       return Meteor.users.find({}, {sort: {username: 1}});
+    },
+
+    loggedIn:function(){
+    return Meteor.users.find({'services.resume.loginTokens.hashedToken': {$exists: true}}).count();
     }
   })
 
@@ -74,6 +78,10 @@ if (Meteor.isClient) {
         return false;
       }
     },
+
+    loggedIn:function(userId){
+
+    }
 
   }) //end of available user helpers
 
@@ -139,14 +147,14 @@ if (Meteor.isClient) {
 
 if (Meteor.isServer) {
   Meteor.publish('userList', function(){
-    return Meteor.users.find()
+    return Meteor.users.find({},{fields: {profile: 1, status: 1}})
   });
 
   Meteor.publish('activeChats', function(){
     return Chats.find({$or:[
                       {user1Id: this.userId},
                       {user2Id: this.userId}
-      ]
+                      ]
     })
   });
 
