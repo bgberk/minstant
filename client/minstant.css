@@ -1,5 +1,14 @@
 /* CSS declarations go here */
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 30px;
+}
+
 .jumbotron{
 	background: url('http://www.stjohncharlescity.org/eskinny/media_lit.JPG') no-repeat center center;
 	background-size: cover;
@@ -102,4 +111,16 @@
 .chat-message {
 	border-radius: 5px;
 	padding: 5px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 30px;
+  background-color: #f5f5f5;
+  color: #4f4f4f;
+  padding: 0 0 0 50px;
+  font-size: 12px;
 }
